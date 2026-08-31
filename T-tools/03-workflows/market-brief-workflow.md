@@ -38,15 +38,20 @@ Recipient (current phase): Tom only. Not client-facing, do not add recipients wi
 
 ## DELIVERY (current state, read before assuming this is automatic)
 
-End-state target, as decided with Tom: auto-send by email, every morning, no manual step.
+**Changed 2026-08-31, decided with Tom:** delivery is Telegram, not email. The Gmail-draft gap below is kept for history; it is no longer how this workflow ships the brief.
 
-**Confirmed gap (checked directly against the connected Gmail tool schema, 2026-07-30):** the Gmail connection has draft creation/update, search, and labels. There is no send action at all, not a permissions issue, the capability is not present in this connection.
+Every run, step 5:
+1. Send the brief as a single Telegram message via a direct HTTPS POST (Bash + curl, no library needed):
+   ```
+   curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+     --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
+     --data-urlencode "text@-" <<< "$BRIEF_TEXT"
+   ```
+   The bot token and chat ID are given directly in this session's own instructions (the routine prompt), never read from this repo or committed anywhere - this repo is public. If they are missing from the prompt, stop and flag it in the run report rather than guessing or skipping delivery silently.
+2. Check the curl response for `"ok":true`. If it comes back `false` (e.g. bad token, bad chat id), flag the exact error in the run report - do not report "sent" on a failed call.
+3. Brief is well under Telegram's 4096-char single-message limit per the length checklist item below, so no chunking logic is needed here (unlike the interactive bot at `T-tools/04-connections/telegram-bot/bot.py`, which does chunk for arbitrary-length replies).
 
-**Launch mode, decided with Tom (2026-07-30):** start now with drafts, do not wait for send to be wired. Every run:
-1. Creates a Gmail draft with the brief as the body, subject `תקציר בוקר: DD.MM.YYYY`, waiting in Tom's drafts by 06:30.
-2. Flags in its run report that delivery is draft-only pending real send capability, so this is never silently mistaken for the auto-send Tom actually wants.
-
-When a send-capable connection is confirmed (see `M-memory/learning-log.md` open item), remove this note and switch step 5 to send directly, no draft step, no code change needed elsewhere in this workflow.
+**Historical note (superseded above):** the original target was Gmail auto-send. That never shipped: the connected Gmail tool schema (checked 2026-07-30) only exposed draft creation/update/search/labels, no send action. The workflow ran in Gmail-draft-only mode from 2026-07-30 to 2026-08-31 as a result. Telegram's `sendMessage` has no such gap - it is a genuine send, which is part of why Tom asked for the switch.
 
 ---
 
@@ -71,7 +76,7 @@ This is infrastructure setup, not a file in `T-tools/`. See `M-memory/learning-l
 - [ ] Zero em/en dashes
 - [ ] Under ~450 words / 3-minute read
 - [ ] Saved to `O-output/daily-briefs/YYYY-MM-DD.md`
-- [ ] Delivery attempted; fallback-to-draft flagged in the run report if send was unavailable
+- [ ] Telegram `sendMessage` called and its response checked for `"ok":true`; a failure is flagged in the run report, never silently reported as sent
 
 ---
 
@@ -80,14 +85,15 @@ This is infrastructure setup, not a file in `T-tools/`. See `M-memory/learning-l
 Keep it short, every run:
 1. One line: what mattered most in tonight's brief.
 2. The saved path.
-3. Delivery status: sent, or fell back to draft (and why).
+3. Delivery status: sent via Telegram, or failed (with the exact error from the API response).
 
 ---
 
 ## OPEN ITEMS
 
-- Send capability for the connected Gmail account is unconfirmed. Resolve before this workflow can deliver the way Tom actually asked for.
 - Recipient scope is Tom-only by decision (2026-07-30). Expanding to clients is a separate decision, not a default expansion of this workflow.
+- **LIVE as of 2026-07-30**: routine `trig_01K9GuqitobZXscbUbS5qaiR` ("Nightly Market Brief") runs this workflow daily via `github.com/TomZivAi/market-brief-agent` (a scoped mirror repo, see `M-memory/learning-log.md`). That repo is public, not private, this was required to get the GitHub connector working and is a permanent state, not a temporary one.
+- `cron_expression` is fixed UTC and does not track Israel's DST. It will drift an hour after the next DST change (late Oct 2026) unless manually updated via `RemoteTrigger update`. Not yet scheduled.
 
 ---
 
