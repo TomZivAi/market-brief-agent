@@ -1,0 +1,25 @@
+{
+  "name": "tom-ziv-control-room",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tom Ziv – AI agent network promo video (Remotion)",
+  "scripts": {
+    "dev": "remotion studio",
+    "render": "remotion render TomZivPromo out/tom-ziv-promo.mp4",
+    "still": "remotion still TomZivPromo out/still.png",
+    "sfx": "node scripts/make-sfx.mjs"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.540",
+    "@remotion/fonts": "^4.0.540",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.540"
+  },
+  "devDependencies": {
+    "@fontsource-variable/heebo": "^5.2.5",
+    "@fontsource-variable/jetbrains-mono": "^5.2.5",
+    "@types/react": "19.1.8",
+    "typescript": "5.8.3"
+  }
+}
