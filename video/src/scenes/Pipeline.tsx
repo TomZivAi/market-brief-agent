@@ -7,11 +7,11 @@ import {Panel} from '../components/ui';
 
 const Y = 470;
 const stations = [
-  {x: 1620, title: 'איסוף נתונים', who: 'נועה', icon: '⌕', note: 'מקורות חיים, 24-48 שעות'},
-  {x: 1310, title: 'ניתוח פיננסי', who: 'נועה', icon: '∿', note: 'מדדים, ריבית, שקל'},
-  {x: 1000, title: 'כתיבה ועריכה', who: 'יואב', icon: '✎', note: 'בקול של תום'},
-  {x: 690, title: 'בקרת איכות', who: 'רינה', icon: '◎', note: 'כל מספר מול המקור'},
-  {x: 380, title: 'יוצא לדרך', who: 'דני', icon: '➤', note: 'טלגרם / מייל / PDF'},
+  {x: 1620, title: 'איסוף נתונים', who: 'לונה', icon: '⌕', note: 'מקורות חיים, 24-48 שעות'},
+  {x: 1310, title: 'ניתוח פיננסי', who: 'לונה', icon: '∿', note: 'מדדים, ריבית, שקל'},
+  {x: 1000, title: 'כתיבה ועריכה', who: 'אוסקר', icon: '✎', note: 'בקול של תום'},
+  {x: 690, title: 'בקרת איכות', who: 'גרטה', icon: '◎', note: 'כל מספר מול המקור'},
+  {x: 380, title: 'יוצא לדרך', who: 'ריקו', icon: '➤', note: 'טלגרם / מייל / PDF'},
 ];
 const QA = 3;
 
@@ -89,7 +89,7 @@ export const Pipeline: React.FC<{dur: number}> = ({dur}) => {
       {/* Michal memory chip */}
       <div style={{position: 'absolute', top: Y + 300, left: xs[2] - 150, opacity: ease(frame, 340, 365)}}>
         <Panel style={{padding: '10px 20px', fontSize: 24, color: C.text}} glow="#67e8f9">
-          <span style={{color: '#67e8f9', fontWeight: 700}}>מיכל</span> · התיקון נשמר בזיכרון
+          <span style={{color: '#67e8f9', fontWeight: 700}}>מטילדה</span> · התיקון נשמר בזיכרון
         </Panel>
       </div>
 

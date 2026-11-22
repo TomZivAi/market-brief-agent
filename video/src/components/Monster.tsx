@@ -26,8 +26,8 @@ export const Monster: React.FC<Props> = ({color, eyes, outfit, size = 420, seed 
         <ellipse cx={150} cy={378} rx={34} ry={18} fill={color} style={{filter: "brightness(0.8)"}} />
         <ellipse cx={250} cy={378} rx={34} ry={18} fill={color} style={{filter: "brightness(0.8)"}} />
         {/* horns */}
-        <path d="M120 120 L100 60 L150 105 Z" fill={C.gold} opacity={outfit === 'NOA' || outfit === 'RINA' || outfit === 'DANI' || outfit === 'YOAV' ? 0 : 1} />
-        <path d="M280 120 L300 60 L250 105 Z" fill={C.gold} opacity={outfit === 'NOA' || outfit === 'RINA' || outfit === 'DANI' || outfit === 'YOAV' ? 0 : 1} />
+        <path d="M120 120 L100 60 L150 105 Z" fill={C.gold} opacity={outfit === 'LUNA' || outfit === 'GRETA' || outfit === 'RICO' || outfit === 'OSCAR' ? 0 : 1} />
+        <path d="M280 120 L300 60 L250 105 Z" fill={C.gold} opacity={outfit === 'LUNA' || outfit === 'GRETA' || outfit === 'RICO' || outfit === 'OSCAR' ? 0 : 1} />
         {/* body */}
         <path d="M200 90 C300 90 330 170 330 250 C330 330 285 375 200 375 C115 375 70 330 70 250 C70 170 100 90 200 90 Z" fill={color} />
         <path d="M200 90 C300 90 330 170 330 250 C330 330 285 375 200 375" fill="none" stroke="#fff" strokeOpacity={0.18} strokeWidth={6} />
@@ -74,7 +74,7 @@ const Outfit: React.FC<{who: string; color: string; frame: number}> = ({who, fra
           </g>
         </g>
       );
-    case 'NOA': // sleeping cap + head lamp + coffee
+    case 'LUNA': // sleeping cap + head lamp + coffee
       return (
         <g>
           <path d="M115 115 Q200 40 290 110 Q340 60 360 30" fill="#4c1d95" stroke="#4c1d95" strokeWidth={8} />
@@ -87,7 +87,7 @@ const Outfit: React.FC<{who: string; color: string; frame: number}> = ({who, fra
           <path d={`M342 172 Q346 ${160 + Math.sin(frame / 8) * 4} 342 150`} stroke="#fff" strokeOpacity={0.5} strokeWidth={3} fill="none" />
         </g>
       );
-    case 'YOAV': // beret + scarf + quill
+    case 'OSCAR': // beret + scarf + quill
       return (
         <g>
           <ellipse cx={190} cy={100} rx={100} ry={30} fill="#1e293b" transform="rotate(-8 190 100)" />
@@ -97,7 +97,7 @@ const Outfit: React.FC<{who: string; color: string; frame: number}> = ({who, fra
           <path d={`M300 130 Q340 ${70 + Math.sin(frame / 10) * 6} 370 40`} stroke="#f8fafc" strokeWidth={10} strokeLinecap="round" fill="none" />
         </g>
       );
-    case 'RINA': // guard cap + magnifier + badge
+    case 'GRETA': // guard cap + magnifier + badge
       return (
         <g>
           <path d="M110 120 Q200 60 290 120 L290 135 L110 135 Z" fill="#1e293b" />
@@ -110,7 +110,7 @@ const Outfit: React.FC<{who: string; color: string; frame: number}> = ({who, fra
           </g>
         </g>
       );
-    case 'MICHAL': // glasses + cardigan + card drawers
+    case 'MATILDA': // glasses + cardigan + card drawers
       return (
         <g>
           <circle cx={160} cy={180} r={38} fill="none" stroke="#1e293b" strokeWidth={7} />
@@ -125,7 +125,7 @@ const Outfit: React.FC<{who: string; color: string; frame: number}> = ({who, fra
           <circle cx={200} cy={320} r={3} fill={C.gold} />
         </g>
       );
-    case 'DANI': // postman cap + bag + paper plane
+    case 'RICO': // postman cap + bag + paper plane
       return (
         <g>
           <path d="M110 125 Q200 70 290 125 Z" fill="#1e3a8a" />
